@@ -502,6 +502,30 @@
       box-shadow: 0 0 22px rgba(255,255,255,0.75);
     }
 
+
+    .media-avatar {
+      background: #000;
+    }
+
+    .media-avatar::before,
+    .media-avatar::after {
+      display: none !important;
+    }
+
+    .avatar-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+
+    .media-avatar .online-dot {
+      z-index: 2;
+    }
+
     .app-title {
       min-width: 0;
     }
@@ -1145,7 +1169,8 @@
         <article class="glass-panel app-card">
           <div class="app-inner">
             <div class="profile-row">
-              <div class="avatar" aria-hidden="true">
+              <div class="avatar media-avatar" aria-hidden="true">
+                <video class="avatar-media" src="./assets/jupnich-animated-pfp.mp4" poster="./assets/jupnich-animated-pfp-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
                 <span class="online-dot"></span>
               </div>
               <div class="app-title">
@@ -1178,7 +1203,9 @@
 
         <article class="glass-panel id-card">
           <div class="id-top">
-            <div class="id-avatar" aria-hidden="true"></div>
+            <div class="id-avatar media-avatar" aria-hidden="true">
+              <video class="avatar-media" src="./assets/zenithoche-public-pfp.mp4" poster="./assets/zenithoche-public-pfp-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
             <div>
               <p class="id-kicker">Jupnich ID</p>
               <h2 class="id-name">XINOCHE.</h2>
@@ -1217,7 +1244,9 @@
           </div>
 
           <div class="level-strip">
-            <div class="small-avatar" aria-hidden="true"></div>
+            <div class="small-avatar media-avatar" aria-hidden="true">
+              <video class="avatar-media" src="./assets/jupnich-animated-pfp.mp4" poster="./assets/jupnich-animated-pfp-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+            </div>
             <div class="message-text">
               <strong>Jupnich</strong> <span class="badge-app">APP</span> reached <strong>Level 8!</strong>
             </div>
