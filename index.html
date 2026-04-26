@@ -1,120 +1,215 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Jupnich Discord App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Jupnich is a Discord server operations app that brings setup, tickets, events, roles, moderation, music, source routing, leveling, birthdays, and media tools into one clean place.">
+  <meta name="description" content="Jupnich is a Discord server operations app for setup, tickets, events, roles, moderation support, source routing, leveling, birthdays, music, and media basics.">
   <style>
     :root {
       --bg: #06070b;
-      --panel: rgba(16, 18, 28, 0.92);
-      --panel-2: rgba(24, 28, 42, 0.88);
-      --text: #f8fafc;
-      --muted: #b9bece;
-      --dim: #8f96aa;
-      --line: rgba(255, 255, 255, 0.12);
-      --line-strong: rgba(255, 255, 255, 0.2);
+      --bg2: #0b0e15;
+      --card: rgba(16, 19, 29, 0.78);
+      --card-strong: rgba(18, 22, 34, 0.94);
+      --line: rgba(255,255,255,0.09);
+      --text: #f5f7fb;
+      --muted: #b8bfd1;
+      --soft: #dfe7ff;
       --accent: #ffffff;
-      --accent-text: #06070b;
-      --soft: #dbeafe;
-      --shadow: rgba(0, 0, 0, 0.46);
+      --accent-text: #090b11;
+      --glow1: rgba(255,255,255,0.11);
+      --glow2: rgba(147, 197, 253, 0.10);
+      --glow3: rgba(196, 181, 253, 0.08);
     }
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
-
-    body {
+    html, body {
       margin: 0;
-      min-height: 100vh;
+      min-height: 100%;
       font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.13), transparent 28%),
-        radial-gradient(circle at 90% 12%, rgba(219, 234, 254, 0.12), transparent 24%),
-        radial-gradient(circle at 50% 100%, rgba(76, 81, 108, 0.18), transparent 34%),
-        linear-gradient(180deg, #090a10 0%, var(--bg) 56%, #030408 100%);
       color: var(--text);
-      line-height: 1.6;
+      background:
+        radial-gradient(circle at top, #0d111a 0%, var(--bg) 48%, #030406 100%);
     }
 
-    a { color: var(--soft); }
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .bg-energy {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.015), rgba(255,255,255,0)),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02), transparent 24%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.025), transparent 26%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.75;
+      transform: translate3d(0,0,0);
+    }
+
+    .orb.one {
+      width: 480px;
+      height: 480px;
+      left: -120px;
+      top: 40px;
+      background: radial-gradient(circle, var(--glow2) 0%, transparent 68%);
+      animation: driftOne 18s ease-in-out infinite alternate;
+    }
+
+    .orb.two {
+      width: 520px;
+      height: 520px;
+      right: -140px;
+      top: 240px;
+      background: radial-gradient(circle, var(--glow1) 0%, transparent 72%);
+      animation: driftTwo 24s ease-in-out infinite alternate;
+    }
+
+    .orb.three {
+      width: 420px;
+      height: 420px;
+      left: 30%;
+      bottom: -120px;
+      background: radial-gradient(circle, var(--glow3) 0%, transparent 70%);
+      animation: driftThree 22s ease-in-out infinite alternate;
+    }
+
+    .energy-lines {
+      position: absolute;
+      inset: -10%;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px;
+      mask-image: radial-gradient(circle at center, black 28%, transparent 92%);
+      -webkit-mask-image: radial-gradient(circle at center, black 28%, transparent 92%);
+      transform: perspective(900px) rotateX(72deg) scale(1.5);
+      transform-origin: center center;
+      animation: gridShift 18s linear infinite;
+    }
+
+    .energy-ring {
+      position: absolute;
+      left: 50%;
+      top: 34%;
+      width: 900px;
+      height: 900px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.045);
+      box-shadow:
+        0 0 80px rgba(255,255,255,0.03),
+        inset 0 0 80px rgba(255,255,255,0.015);
+      opacity: 0.55;
+      animation: ringPulse 14s ease-in-out infinite;
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.9) 0.5px, transparent 0.7px);
+      background-size: 9px 9px;
+      animation: noiseShift 10s linear infinite;
+    }
 
     main {
-      width: min(1120px, calc(100% - 32px));
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 54px 0 36px;
+      padding: 56px 20px 72px;
     }
 
     .hero {
       position: relative;
       overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 30px;
-      align-items: center;
-      border: 1px solid var(--line-strong);
-      background:
-        linear-gradient(145deg, rgba(21, 24, 36, 0.96), rgba(9, 10, 16, 0.98)),
-        var(--panel);
-      border-radius: 34px;
-      padding: 36px;
-      box-shadow: 0 28px 90px var(--shadow);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -90px -120px auto auto;
-      width: 310px;
-      height: 310px;
-      background: radial-gradient(circle, rgba(255,255,255,0.13), transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-copy { position: relative; z-index: 1; }
-
-    .logo-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 13px 8px 8px;
-      color: var(--soft);
-      background: rgba(255, 255, 255, 0.045);
-      font-size: 14px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+        var(--card-strong);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow:
+        0 20px 80px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       margin-bottom: 20px;
     }
 
-    .logo-mark img {
-      width: 34px;
-      height: 34px;
-      border-radius: 11px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.14);
+    .logo-wrap {
+      width: 70px;
+      height: 70px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      box-shadow: 0 0 30px rgba(255,255,255,0.06);
+    }
+
+    .logo-wrap img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--soft);
+      background: rgba(255,255,255,0.03);
+      font-size: 14px;
+      margin-bottom: 14px;
     }
 
     h1 {
-      font-size: clamp(48px, 8vw, 86px);
-      line-height: 0.9;
-      margin: 0 0 14px;
-      letter-spacing: -0.065em;
+      margin: 0;
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
     }
 
-    .tagline {
-      font-size: clamp(24px, 3.8vw, 42px);
-      line-height: 1.03;
-      letter-spacing: -0.045em;
-      margin: 0 0 17px;
+    .subline {
+      margin: 14px 0 10px;
+      font-size: clamp(18px, 2.4vw, 24px);
+      color: var(--soft);
       max-width: 760px;
     }
 
     .summary {
-      color: var(--muted);
+      margin: 0;
+      max-width: 780px;
       font-size: 17px;
-      max-width: 760px;
-      margin: 0 0 26px;
+      color: var(--muted);
     }
 
     .actions {
@@ -125,105 +220,88 @@
     }
 
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
+      display: inline-block;
+      text-decoration: none;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .button.primary {
       background: var(--accent);
       color: var(--accent-text);
-      padding: 12px 18px;
-      border-radius: 15px;
-      text-decoration: none;
-      font-weight: 900;
-      border: 1px solid transparent;
     }
 
     .button.secondary {
-      background: transparent;
       color: var(--text);
-      border-color: var(--line);
-    }
-
-    .hero-card {
-      position: relative;
-      z-index: 1;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.11), transparent 48%),
-        rgba(6, 7, 11, 0.62);
-      padding: 24px;
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .hero-logo {
-      width: min(285px, 78%);
-      aspect-ratio: 1;
-      object-fit: cover;
-      border-radius: 34px;
-      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255,255,255,0.13);
-      margin-bottom: 20px;
-    }
-
-    .hero-card strong {
-      font-size: 21px;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-card span {
-      display: block;
-      color: var(--dim);
-      margin-top: 5px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .features {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     .pill {
-      border: 1px solid var(--line);
+      padding: 8px 11px;
       border-radius: 999px;
-      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.035);
       font-size: 14px;
     }
 
-    .section-title {
-      margin: 30px 0 14px;
-      color: var(--text);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 18px;
+      margin-top: 26px;
     }
 
-    .grid {
+    .shot {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
+      margin-top: 18px;
     }
 
     .card {
-      background: var(--panel-2);
+      border-radius: 22px;
       border: 1px solid var(--line);
-      border-radius: 24px;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 22px;
-      min-height: 142px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.24);
     }
 
     .card h2 {
       margin: 0 0 8px;
-      font-size: 20px;
-      letter-spacing: -0.035em;
+      font-size: 19px;
     }
 
     .card p {
@@ -231,152 +309,156 @@
       color: var(--muted);
     }
 
-    .preview-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .preview {
-      overflow: hidden;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.035);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.26);
-    }
-
-    .preview img {
-      display: block;
-      width: 100%;
-      height: 430px;
-      object-fit: cover;
-      object-position: top center;
-      filter: saturate(0.92) contrast(1.03);
-    }
-
-    .preview-caption {
-      padding: 14px 16px;
-      color: var(--muted);
-      font-size: 14px;
-      border-top: 1px solid var(--line);
-      background: rgba(6, 7, 11, 0.52);
-    }
-
-    .cta {
-      margin-top: 18px;
-      border-radius: 28px;
-      border: 1px solid var(--line-strong);
-      background: linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
-      padding: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .cta h2 {
-      margin: 0 0 4px;
-      letter-spacing: -0.04em;
-    }
-
-    .cta p {
-      margin: 0;
-      color: var(--muted);
-    }
-
     .footer {
-      margin-top: 24px;
+      margin-top: 20px;
+      text-align: center;
       color: var(--muted);
       font-size: 14px;
-      text-align: center;
+      line-height: 1.7;
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+    a { color: var(--soft); }
+
+    @keyframes driftOne {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(80px, 30px) scale(1.07); }
+      100% { transform: translate(30px, 90px) scale(0.96); }
+    }
+
+    @keyframes driftTwo {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-90px, -30px) scale(1.04); }
+      100% { transform: translate(-40px, 70px) scale(0.95); }
+    }
+
+    @keyframes driftThree {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-50px, -40px) scale(1.05); }
+      100% { transform: translate(50px, 10px) scale(0.97); }
+    }
+
+    @keyframes gridShift {
+      0%   { transform: perspective(900px) rotateX(72deg) translateY(0) scale(1.5); }
+      100% { transform: perspective(900px) rotateX(72deg) translateY(42px) scale(1.5); }
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.42; transform: translate(-50%, -50%) scale(0.98); }
+      50%      { opacity: 0.72; transform: translate(-50%, -50%) scale(1.03); }
+    }
+
+    @keyframes noiseShift {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(12px, 8px); }
     }
 
     @media (max-width: 900px) {
-      .hero,
       .preview-grid,
-      .cta {
+      .content-grid {
         grid-template-columns: 1fr;
       }
-
-      .hero-card { min-height: auto; }
-      .grid { grid-template-columns: 1fr; }
-      .cta { display: block; }
-      .cta .button { margin-top: 16px; }
     }
 
-    @media (max-width: 560px) {
-      main { width: min(100% - 24px, 1120px); padding-top: 28px; }
-      .hero { padding: 22px; border-radius: 26px; }
-      .actions .button { width: 100%; }
-      .preview img { height: 360px; }
+    @media (max-width: 720px) {
+      main {
+        padding: 28px 14px 50px;
+      }
+
+      .hero {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .hero-top {
+        align-items: flex-start;
+      }
+
+      .actions .button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .logo-wrap {
+        width: 60px;
+        height: 60px;
+      }
+
+      .logo-wrap img {
+        width: 36px;
+        height: 36px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg-energy">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+    <div class="energy-lines"></div>
+    <div class="energy-ring"></div>
+    <div class="noise"></div>
+  </div>
+
   <main>
     <section class="hero">
-      <div class="hero-copy">
-        <div class="logo-mark">
-          <img src="./assets/jupnich-logo.jpg" alt="Jupnich lotus logo">
-          Early public rollout • Discord server operations
+      <div class="hero-top">
+        <div class="logo-wrap">
+          <img src="./assets/jupnich-logo.jpg" alt="Jupnich logo">
         </div>
-
-        <h1>Jupnich</h1>
-
-        <p class="tagline">Stop stacking bots. Run one clean system.</p>
-
-        <p class="summary">
-          Jupnich brings setup, tickets, events, roles, moderation support, music,
-          source routing, leveling, birthdays, and media tools into one focused server operations layer.
-        </p>
-
-        <div class="actions">
-          <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
-            Add Jupnich to Discord
-          </a>
-          <a class="button secondary" href="#previews">View previews</a>
-        </div>
-
-        <div class="features">
-          <span class="pill">Setup</span>
-          <span class="pill">Tickets</span>
-          <span class="pill">Events</span>
-          <span class="pill">Roles</span>
-          <span class="pill">Moderation Memory</span>
-          <span class="pill">Source Routing</span>
-          <span class="pill">Music</span>
-          <span class="pill">Media Basics</span>
-          <span class="pill">Leveling</span>
-          <span class="pill">Birthdays</span>
+        <div>
+          <div class="badge">Early public rollout • Discord server operations</div>
+          <h1>Jupnich</h1>
         </div>
       </div>
 
-      <aside class="hero-card" aria-label="Jupnich brand card">
-        <img class="hero-logo" src="./assets/jupnich-logo.jpg" alt="Jupnich lotus logo">
-        <strong>The bot pile ends here.</strong>
-        <span>All your core server operations in one place.</span>
-      </aside>
+      <p class="subline">Stop stacking bots. Run one clean system.</p>
+
+      <p class="summary">
+        Jupnich gives Discord communities one cleaner operations layer for setup, tickets, events,
+        roles, moderation support, source routing, leveling, birthdays, music, and media basics.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
+          Add Jupnich to Discord
+        </a>
+        <a class="button secondary" href="./terms.html">Terms</a>
+        <a class="button secondary" href="./privacy.html">Privacy</a>
+      </div>
+
+      <div class="features">
+        <span class="pill">Setup</span>
+        <span class="pill">Tickets</span>
+        <span class="pill">Events</span>
+        <span class="pill">Roles</span>
+        <span class="pill">Moderation Memory</span>
+        <span class="pill">Source Routing</span>
+        <span class="pill">Leveling</span>
+        <span class="pill">Birthdays</span>
+        <span class="pill">Music</span>
+        <span class="pill">Media Basics</span>
+      </div>
+
+      <div class="preview-grid">
+        <div class="shot">
+          <img src="./assets/jupnich-profile.jpg" alt="Jupnich bot profile preview">
+        </div>
+        <div class="shot">
+          <img src="./assets/jupnich-level-card.jpg" alt="Jupnich level card preview">
+        </div>
+      </div>
     </section>
 
-    <p class="section-title">Tiers</p>
-    <section class="grid">
+    <section class="content-grid">
       <div class="card">
         <h2>Free foundation</h2>
-        <p>Useful setup, tickets, events, role basics, onboarding, moderation basics, leveling, birthdays, music, and media basics.</p>
+        <p>Core setup, roles, tickets, onboarding, moderation basics, events, and practical community tools.</p>
       </div>
 
       <div class="card">
         <h2>Plus operations</h2>
-        <p>Built for stronger staff workflows, richer events, role panels, music/media sessions, and deeper server structure.</p>
+        <p>Stronger workflows for staff teams, richer role panels, music/media sessions, and deeper server structure.</p>
       </div>
 
       <div class="card">
@@ -385,40 +467,11 @@
       </div>
     </section>
 
-    <p class="section-title" id="previews">Feature previews</p>
-    <section class="preview-grid">
-      <article class="preview">
-        <img src="./assets/jupnich-profile.jpg" alt="Jupnich Discord app profile preview">
-        <div class="preview-caption">Public app profile and install-ready Discord presence.</div>
-      </article>
-
-      <article class="preview">
-        <img src="./assets/jupnich-level-card.jpg" alt="Jupnich level card preview">
-        <div class="preview-caption">Level cards and community polish built into the server operations layer.</div>
-      </article>
-    </section>
-
-    <section class="cta">
-      <div>
-        <h2>Ready to clean up your server stack?</h2>
-        <p>Install Jupnich, run setup, and start replacing scattered bot clutter with one focused operations layer.</p>
-      </div>
-      <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
-        Add Jupnich
-      </a>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="./terms.html">Terms of Service</a>
-        <a href="./privacy.html">Privacy Policy</a>
-      </div>
-      <div>
-        Jupnich is in early public rollout. Premium activation and support may be handled manually during the first launch phase.
-        <br>
-        Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.
-      </div>
-    </footer>
+    <p class="footer">
+      Jupnich is in early public rollout. Premium activation and support may be handled manually during the first launch phase.
+      <br>
+      Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.
+    </p>
   </main>
 </body>
 </html>
