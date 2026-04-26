@@ -4,37 +4,111 @@
   <meta charset="utf-8">
   <title>Jupnich Discord App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f1117;
+      color: #f4f4f5;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 22px;
+    }
+
+    .card {
+      background: #171923;
+      border: 1px solid #2a2d3a;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: 44px;
+      margin: 0 0 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .tagline {
+      font-size: 20px;
+      color: #d7d7dc;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      background: #f4f4f5;
+      color: #0f1117;
+      padding: 12px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #dbeafe;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    small {
+      color: #a1a1aa;
+    }
+  </style>
 </head>
 <body>
   <main>
-    <h1>Jupnich</h1>
-    <p><strong>Server operations for Discord communities.</strong></p>
-
-    <p>
-      Jupnich helps Discord servers run cleaner with setup tools, tickets,
-      events, moderation support, roles, source routing, leveling, birthdays,
-      and media basics.
-    </p>
-
-    <h2>Add Jupnich</h2>
-    <p>
-      <a href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
+    <section class="card">
+      <h1>Jupnich</h1>
+      <p class="tagline">Server operations for Discord communities.</p>
+      <p>
+        Jupnich helps Discord servers run cleaner with setup tools, tickets,
+        events, moderation support, role systems, source routing, leveling,
+        birthdays, and media basics.
+      </p>
+      <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
         Add Jupnich to your Discord server
       </a>
-    </p>
+    </section>
 
-    <h2>Legal</h2>
-    <ul>
-      <li><a href="./terms.html">Terms of Service</a></li>
-      <li><a href="./privacy.html">Privacy Policy</a></li>
-    </ul>
+    <section class="card">
+      <h2>What Jupnich does</h2>
+      <ul>
+        <li>Guided server setup and readiness checks</li>
+        <li>Tickets, events, roles, selfroles, and role panels</li>
+        <li>Welcome, goodbye, boost, leveling, and birthday systems</li>
+        <li>Moderation support and moderation memory</li>
+        <li>Source routing and server feed intake tools</li>
+        <li>Music and media basics</li>
+      </ul>
+    </section>
 
-    <h2>Status</h2>
-    <p>
-      Jupnich is in early public rollout. Premium activation and support may be handled manually during the first launch phase.
-    </p>
+    <section class="card">
+      <h2>Current status</h2>
+      <p>
+        Jupnich is in early public rollout. Free features are available now.
+        Premium activation and support may be handled manually during the first launch phase.
+      </p>
+    </section>
 
-    <p><small>Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.</small></p>
+    <section class="card">
+      <h2>Legal</h2>
+      <ul>
+        <li><a href="./terms.html">Terms of Service</a></li>
+        <li><a href="./privacy.html">Privacy Policy</a></li>
+      </ul>
+      <p><small>Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.</small></p>
+    </section>
   </main>
 </body>
 </html>
