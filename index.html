@@ -1082,6 +1082,35 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .price-line {
+      margin: 6px 0 8px;
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 22px;
+    }
+
+    .tier-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tier-actions .button {
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
+
+    .activation-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
   </style>
 </head>
 <body>
@@ -1272,7 +1301,11 @@
         </div>
         <div>
           <h2>Plus operations</h2>
+          <p class="price-line">$7/month</p>
           <p>Stronger workflows for staff teams, richer role panels, music/media sessions, and deeper server structure.</p>
+          <div class="tier-actions">
+            <a class="button primary" href="https://buy.stripe.com/28E28t8S297e3Xh04maMU00">Upgrade to Plus</a>
+          </div>
         </div>
       </article>
 
@@ -1282,13 +1315,17 @@
         </div>
         <div>
           <h2>Pro control</h2>
+          <p class="price-line">$13/month</p>
           <p>Advanced automation, templates, source controls, archive workflows, and future premium infrastructure.</p>
+          <div class="tier-actions">
+            <a class="button primary" href="https://buy.stripe.com/28EbJ34BM3MU3XhaJ0aMU01">Upgrade to Pro</a>
+          </div>
         </div>
       </article>
     </section>
 
     <p class="footer">
-      Jupnich is in early public rollout. Premium activation and support may be handled manually during the first launch phase.
+      Jupnich is in early public rollout. Premium activation and support are handled manually during the first launch phase after checkout.
       <br>
       <a href="./terms.html">Terms of Service</a> • <a href="./privacy.html">Privacy Policy</a>
       <br>
