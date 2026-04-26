@@ -4,111 +4,239 @@
   <meta charset="utf-8">
   <title>Jupnich Discord App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jupnich is a Discord server operations app for setup, tickets, events, roles, moderation support, source routing, leveling, birthdays, and media basics.">
   <style>
+    :root {
+      --bg: #090a0f;
+      --card: #141722;
+      --card-soft: #191d2b;
+      --text: #f5f5f7;
+      --muted: #b8bccb;
+      --line: #2b3042;
+      --accent: #ffffff;
+      --accent-text: #090a0f;
+      --soft: #dbeafe;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f1117;
-      color: #f4f4f5;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(219, 234, 254, 0.14), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.08), transparent 30%),
+        var(--bg);
+      color: var(--text);
       line-height: 1.6;
     }
 
     main {
-      max-width: 860px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 56px 22px;
+      padding: 64px 22px;
     }
 
-    .card {
-      background: #171923;
-      border: 1px solid #2a2d3a;
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 22px;
+    .hero {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(20, 23, 34, 0.98), rgba(14, 16, 24, 0.98));
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--soft);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 14px;
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: 44px;
-      margin: 0 0 8px;
-    }
-
-    h2 {
-      margin-top: 0;
+      font-size: clamp(42px, 8vw, 72px);
+      line-height: 0.95;
+      margin: 0 0 12px;
+      letter-spacing: -0.05em;
     }
 
     .tagline {
-      font-size: 20px;
-      color: #d7d7dc;
-      margin-top: 0;
+      font-size: 22px;
+      color: var(--text);
+      margin: 0 0 14px;
+      max-width: 760px;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 760px;
+      margin: 0 0 24px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
     }
 
     .button {
       display: inline-block;
-      background: #f4f4f5;
-      color: #0f1117;
-      padding: 12px 18px;
-      border-radius: 12px;
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 13px 18px;
+      border-radius: 14px;
       text-decoration: none;
-      font-weight: bold;
-      margin-top: 10px;
+      font-weight: 800;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: rgba(25, 29, 43, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
     }
 
     a {
-      color: #dbeafe;
+      color: var(--soft);
     }
 
-    ul {
-      padding-left: 20px;
-    }
+    @media (max-width: 760px) {
+      main {
+        padding: 34px 14px;
+      }
 
-    small {
-      color: #a1a1aa;
+      .hero {
+        padding: 24px;
+        border-radius: 22px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <main>
-    <section class="card">
+    <section class="hero">
+      <div class="badge">Early public rollout • Discord server operations</div>
+
       <h1>Jupnich</h1>
-      <p class="tagline">Server operations for Discord communities.</p>
-      <p>
-        Jupnich helps Discord servers run cleaner with setup tools, tickets,
-        events, moderation support, role systems, source routing, leveling,
-        birthdays, and media basics.
+
+      <p class="tagline">
+        A cleaner operations layer for Discord communities.
       </p>
-      <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
-        Add Jupnich to your Discord server
-      </a>
-    </section>
 
-    <section class="card">
-      <h2>What Jupnich does</h2>
-      <ul>
-        <li>Guided server setup and readiness checks</li>
-        <li>Tickets, events, roles, selfroles, and role panels</li>
-        <li>Welcome, goodbye, boost, leveling, and birthday systems</li>
-        <li>Moderation support and moderation memory</li>
-        <li>Source routing and server feed intake tools</li>
-        <li>Music and media basics</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>Current status</h2>
-      <p>
-        Jupnich is in early public rollout. Free features are available now.
-        Premium activation and support may be handled manually during the first launch phase.
+      <p class="summary">
+        Jupnich helps servers handle setup, tickets, events, roles, moderation support,
+        source routing, leveling, birthdays, and media basics without turning your server
+        tools into a cluttered mess.
       </p>
+
+      <div class="actions">
+        <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
+          Add Jupnich to Discord
+        </a>
+        <a class="button secondary" href="./terms.html">Terms</a>
+        <a class="button secondary" href="./privacy.html">Privacy</a>
+      </div>
+
+      <div class="features">
+        <span class="pill">Setup</span>
+        <span class="pill">Tickets</span>
+        <span class="pill">Events</span>
+        <span class="pill">Roles</span>
+        <span class="pill">Moderation Memory</span>
+        <span class="pill">Source Routing</span>
+        <span class="pill">Leveling</span>
+        <span class="pill">Birthdays</span>
+        <span class="pill">Media Basics</span>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>Legal</h2>
-      <ul>
-        <li><a href="./terms.html">Terms of Service</a></li>
-        <li><a href="./privacy.html">Privacy Policy</a></li>
-      </ul>
-      <p><small>Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.</small></p>
+    <section class="grid">
+      <div class="card">
+        <h2>Free foundation</h2>
+        <p>Useful setup, tickets, events, role basics, onboarding, moderation basics, and community tools.</p>
+      </div>
+
+      <div class="card">
+        <h2>Plus operations</h2>
+        <p>Built for stronger staff workflows, richer events, role panels, media sessions, and deeper server structure.</p>
+      </div>
+
+      <div class="card">
+        <h2>Pro control</h2>
+        <p>Advanced automation, templates, source controls, archive workflows, and future premium infrastructure.</p>
+      </div>
     </section>
+
+    <p class="footer">
+      Jupnich is in early public rollout. Premium activation and support may be handled manually during the first launch phase.
+      <br>
+      Jupnich is not affiliated with, endorsed by, or operated by Discord Inc.
+    </p>
   </main>
 </body>
 </html>
