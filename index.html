@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,15 +7,16 @@
   <meta name="description" content="Jupnich is a Discord server operations app for setup, tickets, events, roles, moderation support, source routing, leveling, birthdays, and media basics.">
   <style>
     :root {
-      --bg: #090a0f;
-      --card: #141722;
-      --card-soft: #191d2b;
-      --text: #f5f5f7;
+      --bg: #07080d;
+      --card: rgba(18, 21, 32, 0.92);
+      --card-soft: rgba(25, 29, 43, 0.82);
+      --text: #f8fafc;
       --muted: #b8bccb;
-      --line: #2b3042;
+      --line: #2c3145;
       --accent: #ffffff;
-      --accent-text: #090a0f;
+      --accent-text: #07080d;
       --soft: #dbeafe;
+      --dim: #8c92a7;
     }
 
     * {
@@ -27,29 +28,42 @@
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(219, 234, 254, 0.14), transparent 32%),
-        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.08), transparent 30%),
+        radial-gradient(circle at 12% 0%, rgba(219, 234, 254, 0.16), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.08), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(79, 70, 229, 0.14), transparent 32%),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
 
     main {
-      max-width: 980px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 64px 22px;
+      padding: 64px 22px 40px;
     }
 
     .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 24px;
+      align-items: stretch;
       border: 1px solid var(--line);
-      background: linear-gradient(145deg, rgba(20, 23, 34, 0.98), rgba(14, 16, 24, 0.98));
-      border-radius: 28px;
-      padding: 34px;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+      background: linear-gradient(145deg, rgba(20, 23, 34, 0.98), rgba(10, 12, 18, 0.98));
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 26px 90px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .badge {
       display: inline-flex;
+      width: fit-content;
       align-items: center;
       gap: 8px;
       border: 1px solid var(--line);
@@ -62,23 +76,24 @@
     }
 
     h1 {
-      font-size: clamp(42px, 8vw, 72px);
-      line-height: 0.95;
-      margin: 0 0 12px;
-      letter-spacing: -0.05em;
+      font-size: clamp(46px, 8vw, 82px);
+      line-height: 0.92;
+      margin: 0 0 14px;
+      letter-spacing: -0.06em;
     }
 
     .tagline {
-      font-size: 22px;
+      font-size: clamp(21px, 3vw, 29px);
       color: var(--text);
       margin: 0 0 14px;
-      max-width: 760px;
+      max-width: 780px;
+      letter-spacing: -0.02em;
     }
 
     .summary {
       color: var(--muted);
       font-size: 17px;
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 0 24px;
     }
 
@@ -86,7 +101,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 8px;
     }
 
     .button {
@@ -97,6 +112,7 @@
       border-radius: 14px;
       text-decoration: none;
       font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .button.secondary {
@@ -105,15 +121,68 @@
       border: 1px solid var(--line);
     }
 
+    .preview-stack {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .shot {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #11131c;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+    }
+
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .shot-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 14px;
+    }
+
+    .section-title {
+      margin: 28px 0 12px;
+      color: var(--text);
+      font-size: 20px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .card {
-      background: rgba(25, 29, 43, 0.82);
+      background: var(--card-soft);
       border: 1px solid var(--line);
       border-radius: 22px;
       padding: 22px;
@@ -129,25 +198,16 @@
       color: var(--muted);
     }
 
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 11px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.035);
-      font-size: 14px;
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      margin-top: 14px;
     }
 
     .footer {
-      margin-top: 22px;
-      color: var(--muted);
+      margin-top: 26px;
+      color: var(--dim);
       font-size: 14px;
       text-align: center;
     }
@@ -156,17 +216,19 @@
       color: var(--soft);
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 860px) {
       main {
         padding: 34px 14px;
       }
 
       .hero {
-        padding: 24px;
-        border-radius: 22px;
+        grid-template-columns: 1fr;
+        padding: 22px;
+        border-radius: 24px;
       }
 
-      .grid {
+      .grid,
+      .gallery {
         grid-template-columns: 1fr;
       }
 
@@ -180,38 +242,67 @@
 <body>
   <main>
     <section class="hero">
-      <div class="badge">Early public rollout • Discord server operations</div>
+      <div class="hero-copy">
+        <div class="badge">Early public rollout • Discord server operations</div>
 
-      <h1>Jupnich</h1>
+        <h1>Jupnich</h1>
 
-      <p class="tagline">
-        A cleaner operations layer for Discord communities.
-      </p>
+        <p class="tagline">A cleaner operations layer for Discord communities.</p>
 
-      <p class="summary">
-        Jupnich helps servers handle setup, tickets, events, roles, moderation support,
-        source routing, leveling, birthdays, and media basics without turning your server
-        tools into a cluttered mess.
-      </p>
+        <p class="summary">
+          Jupnich helps servers handle setup, tickets, events, roles, moderation support,
+          source routing, leveling, birthdays, and media basics without turning your server
+          tools into a cluttered mess.
+        </p>
 
-      <div class="actions">
-        <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
-          Add Jupnich to Discord
-        </a>
-        <a class="button secondary" href="./terms.html">Terms</a>
-        <a class="button secondary" href="./privacy.html">Privacy</a>
+        <div class="actions">
+          <a class="button" href="https://discord.com/oauth2/authorize?client_id=1492395787764764682&permissions=19078550252624&integration_type=0&scope=bot+applications.commands">
+            Add Jupnich to Discord
+          </a>
+          <a class="button secondary" href="./terms.html">Terms</a>
+          <a class="button secondary" href="./privacy.html">Privacy</a>
+        </div>
+
+        <div class="features">
+          <span class="pill">Setup</span>
+          <span class="pill">Tickets</span>
+          <span class="pill">Events</span>
+          <span class="pill">Roles</span>
+          <span class="pill">Moderation Memory</span>
+          <span class="pill">Source Routing</span>
+          <span class="pill">Leveling</span>
+          <span class="pill">Birthdays</span>
+          <span class="pill">Media Basics</span>
+        </div>
       </div>
 
-      <div class="features">
-        <span class="pill">Setup</span>
-        <span class="pill">Tickets</span>
-        <span class="pill">Events</span>
-        <span class="pill">Roles</span>
-        <span class="pill">Moderation Memory</span>
-        <span class="pill">Source Routing</span>
-        <span class="pill">Leveling</span>
-        <span class="pill">Birthdays</span>
-        <span class="pill">Media Basics</span>
+      <div class="preview-stack">
+        <figure class="shot">
+          <img src="./assets/jupnich-profile.jpg" alt="Jupnich Discord app profile with Add App button">
+          <figcaption class="shot-label">
+            <span>Public app profile</span>
+            <span>Add App ready</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <h2 class="section-title">Feature previews</h2>
+    <section class="gallery">
+      <figure class="shot">
+        <img src="./assets/jupnich-level-card.jpg" alt="Jupnich level card preview in Discord">
+        <figcaption class="shot-label">
+          <span>Level cards</span>
+          <span>Community polish</span>
+        </figcaption>
+      </figure>
+
+      <div class="card">
+        <h2>Built for server structure</h2>
+        <p>
+          Jupnich focuses on the operational layer: setup, tickets, events, roles,
+          source routing, moderation continuity, and daily community polish.
+        </p>
       </div>
     </section>
 
